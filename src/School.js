@@ -14,14 +14,17 @@ class School extends React.Component{
       isBlur: false
     }
     this.makeBlur = this.makeBlur.bind(this);
+    this.onEnter = this.onEnter.bind(this);
   }
 
   render(){
       return(
         <div className="School">
           <div id = "container">
-            <div id = "enter-button">
-              ENTER
+            <div id = "enter-button"
+              onClick = {this.onEnter}
+            >
+              WELCOME
             </div>
           </div>
           <img
@@ -42,7 +45,7 @@ class School extends React.Component{
       document.getElementById("schoolImage").style.filter = "blur(0px)";
       document.getElementById("enter-button").style.visibility= "hidden";
       document.getElementById("enter-button").style.opacity = "0";
-     // document.getElementById("schoolImage").style.fontSize = "0px";
+      //document.getElementById("schoolImage").style.fontSize = "0px";
     }
     else{
       this.setState({
@@ -54,8 +57,13 @@ class School extends React.Component{
      // document.getElementById("schoolImage").style.fontSize = "64px";
     }
   }
-}
 
+  onEnter(){
+    
+  }
+
+}
+  
 
 
 export default School;
