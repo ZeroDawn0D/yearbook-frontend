@@ -24,12 +24,7 @@ export default class Yearbook extends Component{
 					SALT LAKE SCHOOL YEARBOOK 2021-2022
 				</div>
 				<div id = "navbar">
-					<div className = "blackBox" id = "back-button"
-					onClick = {this.props.onClickBack}
-					onMouseEnter = {() => {document.getElementById("back-button").style.backgroundColor = "#2a4c9e";}}
-					onMouseLeave = {() => {document.getElementById("back-button").style.backgroundColor = "#000000";}}>
-						BACK
-					</div>
+					
 					<div className = "blackBox" id = "info-button"
 					onMouseEnter = {() => {document.getElementById("info-button").style.backgroundColor = "#2a4c9e";}}
 					onMouseLeave = {() => {document.getElementById("info-button").style.backgroundColor = "#000000";}}>
@@ -58,7 +53,23 @@ export default class Yearbook extends Component{
 				</div>
 				<div id = "info">
 					<div id = "info-head">
-
+						WANT TO ADD YOUR DETAILS?
+					</div>
+					<div id = "info-body">
+						This webpage is intended to act as a yearbook for Salt Lake School ISC batch of 2022.
+						Please fill out this google form. 
+						Also check out the desktop version of the webpage for some extra landing page art.
+					</div>
+					<hr/>
+					<div id = "about-head">
+						ABOUT US
+					</div>
+					<div id = "about-body">
+						<b>Artist:</b> Sayudh Das, XII Sc. B
+						<br />
+						<b>Programmer:</b> Umang Majumder, XII Sc. B
+						<br />
+						Check out more pixel art or Github page.
 					</div>
 				</div>
 			</div>
