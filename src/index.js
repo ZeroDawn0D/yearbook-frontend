@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import School from './School';
+//import School from './School';
+import Page from './Page'
 //import reportWebVitals from './reportWebVitals';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <School />
+    <Page />
   </React.StrictMode>,
   document.getElementById('root')
 );
