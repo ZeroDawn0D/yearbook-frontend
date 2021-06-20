@@ -8,22 +8,28 @@ export default class Page extends Component{
 			showYearbook: false
 		}
 		this.onClickEnter = this.onClickEnter.bind(this);
+		this.onClickBack = this.onClickBack.bind(this);
 	}
 
 	onClickEnter(){
-		console.log("called");
 		this.setState({
 			showYearbook: true
 		})
 	}
 
+	onClickBack(){
+		console.log("clicked");
+		this.setState({
+			showYearbook: false
+		})
+	}
 
 
 	render(){
 		if(!this.state.showYearbook)
 			return <School onClickEnter = {this.onClickEnter}/>
 		else
-			return <Yearbook />
+			return <Yearbook onClickBack = {this.onClickBack}/>
 	}
 
 }

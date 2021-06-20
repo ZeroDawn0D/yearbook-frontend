@@ -1,0 +1,67 @@
+
+#header{
+	position: sticky;
+	font-size: 32px;
+	top: 0;
+	
+	text-align: center;
+	/*transform: translate(-50%, 0);*/
+	background-color: black;
+	color: white;
+	padding: 16px;
+	font-family: Montserrat;
+	
+}
+
+
+
+#navbar{
+	display: flex;
+	position: relative;
+	text-align: center;
+}
+
+.blackBox{
+	background-color: black;
+	color: white;
+	font-family: Montserrat;
+	font-size: 16px;
+	padding: 16px;
+	position: relative;
+	top: 16px;
+	flex-grow: 1;
+	opacity:0;
+	cursor: pointer;
+	transition: background-color 0.5s;
+}
+
+#back-button{
+	animation: buttonAnim 500ms forwards;
+}
+#info-button{
+	animation: buttonAnim 700ms forwards;
+}
+#a-button{
+	animation: buttonAnim 900ms forwards;
+}
+#b-button{
+	animation: buttonAnim 1100ms forwards;
+}
+#h-button{
+	animation: buttonAnim 1300ms forwards;
+}
+#c-button{
+	animation: buttonAnim 1500ms forwards;
+}
+
+
+@keyframes buttonAnim{
+	0%{
+		top:16px;
+		opacity:0;
+	}
+	100%{
+		top:0px;
+		opacity:1;
+	}
+}
