@@ -179,40 +179,25 @@ class Section extends Component{
 		super(props);
 		//this.loadRoll = this.loadRoll.bind(this);
 		console.log("CONSTRUCTOR CALLED: " + this.props.sec);
-		this.printRolls = this.printRolls.bind(this);
-		//this.printNames = this.printNames.bind(this);
-	}
-
-	printRolls(){
-		let toReturn = []
-		this.props.rolls.map((roll) =>{
-			toReturn.push(
-			<div key = {roll}>
-				roll: {roll}
-			</div>);
-		})
-
-		return toReturn;
-		
 	}
 
 	printCards(){
 		var toReturn = [];
 		for(let i = 0; i <  this.props.names.length; i++){
 			toReturn.push(
-				<Card key = {this.props.names[i]} name = {this.props.names[i]} />
+				<Card 
+					key = {this.props.names[i]} 
+					name = {this.props.names[i]} 
+					roll = {this.props.rolls[i]}
+					sec = {this.props.sec}/>
 				);
 		
 		}
-		return (<div id = "card-container">{toReturn}</div>);
+		return toReturn;
 	}
 	render(){
 		return(
-			<div>
-				{this.props.sec} 
-				<br /> 
-				{this.printRolls()}
-				
+			<div id = "card-container"> 
 				{this.printCards()}
 			</div>
 			);
@@ -227,7 +212,11 @@ class Card extends Component{
 	render(){
 		return(
 			<div className = "card" key = {this.props.name}>
-				{this.props.name}
+				Name: {this.props.name}
+				<br />
+				Roll: {this.props.roll}
+				<br />
+				Class: 12 {this.props.sec.toUpperCase()}
 			</div>
 			);
 	}
