@@ -1,4 +1,5 @@
 
+
 #header{
 	font-size: 4vw;
 	
@@ -67,6 +68,17 @@ hr{
 	width: 50%;
 }
 
+
+#loading{
+	font-family: Montserrat;
+	font-size: 3vw;
+	display: inline;
+	position: absolute;
+	top: 50vh;
+	left:50vw;
+	transform: translate(-50%,0);
+}
+
 @keyframes buttonAnim{
 	0%{
 		bottom:32px;
@@ -77,10 +89,25 @@ hr{
 		opacity:1;
 	}
 }
+.card{
+	display: flex;
+	border: 2px solid black;
+	align-items: center;
+	margin: 10px;
+	
+	justify-content: center;
+}
+
 
 @media only screen and (min-width: 769px){
 	#makeSticky{
 		position: sticky;
 		top: 0;
+	}
+
+	#card-container{
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-auto-rows: 10vh;
 	}
 }

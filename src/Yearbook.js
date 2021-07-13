@@ -1,9 +1,51 @@
 import {Component} from 'react';
 import './Yearbook.css';
+
 export default class Yearbook extends Component{
 	constructor(props){
 		super(props);
-		
+		this.state = {
+			choice: "i",
+			rolls: "",
+			link: "https://slsyearbook.herokuapp.com/",
+			names: []
+			}; // i a b c h
+		this.loadRoll = this.loadRoll.bind(this);
+		this.loadName = this.loadName.bind(this);
+	}
+
+	loadName(){
+		this.setState({names:[]})
+		let rollstr = this.state.rolls;
+		let sec = this.state.choice;
+		let base = this.state.link + sec + "/";
+		console.log("IN LOAD NAME FUNC: " + rollstr);
+		let rollarr = rollstr.split(" ");
+		let namearr = [];
+		for(var i = 0; i < rollarr.length; i++){
+			let cur_rol = rollarr[i];
+			let cur_link = base + cur_rol + "/name";
+			var that = this;
+			fetch(cur_link)
+			.then(res => res.text())
+			.then(data =>{
+				that.setState({names: that.state.names.concat(data)});
+			})
+		}
+	}
+
+	loadRoll(){
+		this.setState({rolls:""});
+		console.log("load roll called: " + this.state.choice)
+		var that = this; // this here has access to setState
+		fetch(this.state.link + this.state.choice)
+		.then(res => res.text())
+		.then(data => {
+			console.log("DATA: " + data);
+			that.setState({rolls:data}, that.loadName);
+		})
+
+
 	}
 
 	render(){
@@ -17,37 +59,71 @@ export default class Yearbook extends Component{
 					<div id = "navbar">
 						<div className = "blackBox" id = "info-button"
 						onMouseEnter = {() => {document.getElementById("info-button").style.backgroundColor = "#2a4c9e";}}
-						onMouseLeave = {() => {document.getElementById("info-button").style.backgroundColor = "#000000";}}>
+						onMouseLeave = {() => {document.getElementById("info-button").style.backgroundColor = "#000000";}}
+						onClick = {() => {
+							this.setState({choice:"i"});
+						}} >
 							MORE INFO
 						</div>
 						<div className = "blackBox" id = "a-button"
 						onMouseEnter = {() => {document.getElementById("a-button").style.backgroundColor = "#2a4c9e";}}
-						onMouseLeave = {() => {document.getElementById("a-button").style.backgroundColor = "#000000";}}>
+						onMouseLeave = {() => {document.getElementById("a-button").style.backgroundColor = "#000000";}}
+						onClick = {() => {
+							this.setState({choice:"a"},this.loadRoll);
+							
+						}}>
 							XII Sc. A
 						</div>
 						<div className = "blackBox" id = "b-button"
 						onMouseEnter = {() => {document.getElementById("b-button").style.backgroundColor = "#2a4c9e";}}
-						onMouseLeave = {() => {document.getElementById("b-button").style.backgroundColor = "#000000";}}>
+						onMouseLeave = {() => {document.getElementById("b-button").style.backgroundColor = "#000000";}}
+						onClick = {() => {
+							this.setState({choice:"b"},this.loadRoll);
+						}}>
 							XII Sc.B
 						</div>
 						<div className = "blackBox" id = "h-button"
 						onMouseEnter = {() => {document.getElementById("h-button").style.backgroundColor = "#2a4c9e";}}
-						onMouseLeave = {() => {document.getElementById("h-button").style.backgroundColor = "#000000";}}>
+						onMouseLeave = {() => {document.getElementById("h-button").style.backgroundColor = "#000000";}}
+						onClick = {() => {
+							this.setState({choice:"h"}, this.loadRoll);
+					}}>
 							XII Humanities
 						</div>
 						<div className = "blackBox" id = "c-button"
 						onMouseEnter = {() => {document.getElementById("c-button").style.backgroundColor = "#2a4c9e";}}
-						onMouseLeave = {() => {document.getElementById("c-button").style.backgroundColor = "#000000";}}>
+						onMouseLeave = {() => {document.getElementById("c-button").style.backgroundColor = "#000000";}}
+						onClick = {() => {
+							this.setState({choice:"c"}, this.loadRoll);
+						}}>
 							XII Commerce
 						</div>
 					</div>
+				</div>
 
-					<Info />
-				</div>				
+				<Content choice = {this.state.choice} rolls = {this.state.rolls} names = {this.state.names} />
 			</div>
 			);
 	}
 }
+
+
+class Content extends Component{
+	constructor(props){
+		super(props)
+	}
+
+	render(){
+		if(this.props.choice==="i")
+			return <Info />
+		else if(this.props.rolls==="")
+			return <Loading />
+		else
+			return <Section sec = {this.props.choice} rolls = {this.props.rolls.split(" ")} names = {this.props.names}/>
+	}
+}
+
+
 
 
 class Info extends Component{
@@ -83,5 +159,76 @@ class Info extends Component{
 					</div>
 				</div>
 		);
+	}
+}
+
+class Loading extends Component{
+	constructor(props){
+		super(props);
+	}
+
+	render(){
+		return(<div id = "loading"> LOADING CONTENT...</div>)
+	}
+}
+
+
+
+class Section extends Component{
+	constructor(props){
+		super(props);
+		//this.loadRoll = this.loadRoll.bind(this);
+		console.log("CONSTRUCTOR CALLED: " + this.props.sec);
+		this.printRolls = this.printRolls.bind(this);
+		//this.printNames = this.printNames.bind(this);
+	}
+
+	printRolls(){
+		let toReturn = []
+		this.props.rolls.map((roll) =>{
+			toReturn.push(
+			<div key = {roll}>
+				roll: {roll}
+			</div>);
+		})
+
+		return toReturn;
+		
+	}
+
+	printCards(){
+		var toReturn = [];
+		for(let i = 0; i <  this.props.names.length; i++){
+			toReturn.push(
+				<Card key = {this.props.names[i]} name = {this.props.names[i]} />
+				);
+		
+		}
+		return (<div id = "card-container">{toReturn}</div>);
+	}
+	render(){
+		return(
+			<div>
+				{this.props.sec} 
+				<br /> 
+				{this.printRolls()}
+				
+				{this.printCards()}
+			</div>
+			);
+	}
+}
+
+class Card extends Component{
+	constructor(props){
+		super(props);
+	}
+
+	render(){
+		return(
+			<div className = "card" key = {this.props.name}>
+				{this.props.name}
+			</div>
+			);
 	}
 }
