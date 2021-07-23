@@ -1,5 +1,4 @@
 
-
 #header{
 	font-size: 4vw;
 	
@@ -98,7 +97,7 @@ hr{
 	justify-content: center;
 	font-size: 2vw;
 	cursor: pointer;
-	transition: box-shadow 500ms;
+	transition: box-shadow 300ms;
 }
 .card:hover {
 	box-shadow: 2px 2px 8px #555555;
@@ -110,6 +109,57 @@ hr{
 	grid-auto-rows: 10vh;
 }
 
+#dark-screen{
+	display: block;
+	position: absolute;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0,0,0,0.5);
+
+}
+
+#modal-screen{
+	position: absolute;
+	top: 50vh;
+	left: 50vw;
+	width: 70vw;
+	height: 70vh;
+	transform: translate(-50%,-50%);
+	background-color: white;
+	border-radius:20px;
+	padding: 8px 10px;
+}
+
+#exit-modal{
+	display: inline block;
+	position: absolute;
+	right: 10px;
+	font-family: Montserrat;
+	font-size: 3vw;
+	cursor: pointer;
+	color: red;
+	background-color: white;
+	border-radius: 10px;
+	padding: 0px 8px;
+	transition: color 500ms, background-color 500ms;
+}
+#exit-modal:hover{
+	color: white;
+	background-color: red;
+}
+#student-img{
+	height: 20vw;
+	width: 20vw;
+	border-radius: 100%;
+}
+#modal-screen-content{
+	display: flex;
+	flex-flow: column;
+}
+#content-img{
+	text-align: center;
+}
 @media only screen and (min-width: 769px){
 	#makeSticky{
 		position: sticky;
@@ -123,5 +173,12 @@ hr{
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
 		grid-auto-rows: 10vh;
+	}
+	#exit-modal{
+		font-size: 2vw;
+	}
+	#modal-screen-content{
+		display: flex;
+		flex-flow: row;
 	}
 }
