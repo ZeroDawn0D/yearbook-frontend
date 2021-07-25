@@ -129,13 +129,14 @@ hr{
 	background-color: white;
 	border-radius:20px;
 	padding: 8px 10px;
+	font-family: Montserrat;
 }
 
 #exit-modal{
 	display: inline block;
 	position: absolute;
 	right: 10px;
-	font-family: Montserrat;
+
 	font-size: 3vw;
 	cursor: pointer;
 	color: red;
@@ -158,9 +159,19 @@ hr{
 	flex-flow: column;
 }
 #content-img{
+	flex-grow: 1;
 	text-align: center;
 }
-@media only screen and (min-width: 769px){
+#content-info{
+	flex-grow: 2;
+}
+#content-info-name{
+	display: block;
+	text-align: center;
+	font-size: 5vw;
+}
+
+@media only screen and (min-width: 700px){
 	#makeSticky{
 		position: sticky;
 		top: 0;
@@ -180,5 +191,8 @@ hr{
 	#modal-screen-content{
 		display: flex;
 		flex-flow: row;
+	}
+	#content-info-name{
+		font-size: 3vw;
 	}
 }

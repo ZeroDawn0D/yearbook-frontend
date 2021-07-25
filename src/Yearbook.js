@@ -10,12 +10,16 @@ export default class Yearbook extends Component{
 			link: "https://slsyearbook.herokuapp.com/",
 			names: [],
 			modal:false,
-			cur_roll:"0"
+			cur_roll:"0",
+			cur_name:"",
+			cur_quote:"",
+			cur_fav: "",
+			cur_img: ""
 			}; // i a b c h
 		this.loadRoll = this.loadRoll.bind(this);
 		this.callModal = this.callModal.bind(this);
 		this.disableModal = this.disableModal.bind(this);
-		this.setCurRoll = this.setCurRoll.bind(this);
+		this.setCurData = this.setCurData.bind(this);
 	}
 	callModal(){
 		console.log("MODAL CALLED");
@@ -26,9 +30,28 @@ export default class Yearbook extends Component{
 		console.log("CURROLL CALLED: " + r)
 		this.setState({cur_roll:r});
 	}
+	setCurData(r){
+		console.log("CURDATA  CALLED: " + r)
+		this.setState({cur_roll:r});
+		let link = "https://slsyearbook.herokuapp.com/";
+		let query = link + this.state.choice + "/" + r + "/name";
+		let that = this;
+		fetch(query)
+		.then(res => res.text())
+		.then(data => {
+			console.log("NAME FETCHED: " + data);
+			that.setState({cur_name:data});
+		})
+	}
 	disableModal(){
 		console.log("MODAL TURNED OFF");
-		this.setState({modal: false});
+		this.setState({
+			modal: false,
+			cur_name:"",
+			cur_quote:"",
+			cur_fav:"",
+			cur_img:""
+		});
 	}
 	loadRoll(){
 		this.setState({rolls:""});
@@ -59,7 +82,6 @@ export default class Yearbook extends Component{
 						onMouseLeave = {() => {document.getElementById("info-button").style.backgroundColor = "#000000";}}
 						onClick = {() => {
 							this.setState({choice:"i"});
-							this.disableModal();
 						}} >
 							MORE INFO
 						</div>
@@ -68,7 +90,6 @@ export default class Yearbook extends Component{
 						onMouseLeave = {() => {document.getElementById("a-button").style.backgroundColor = "#000000";}}
 						onClick = {() => {
 							this.setState({choice:"a"},this.loadRoll);
-							this.disableModal();
 						}}>
 							XII Sc. A
 						</div>
@@ -77,7 +98,6 @@ export default class Yearbook extends Component{
 						onMouseLeave = {() => {document.getElementById("b-button").style.backgroundColor = "#000000";}}
 						onClick = {() => {
 							this.setState({choice:"b"},this.loadRoll);
-							this.disableModal();
 						}}>
 							XII Sc.B
 						</div>
@@ -86,7 +106,6 @@ export default class Yearbook extends Component{
 						onMouseLeave = {() => {document.getElementById("h-button").style.backgroundColor = "#000000";}}
 						onClick = {() => {
 							this.setState({choice:"h"}, this.loadRoll);
-							this.disableModal();
 					}}>
 							XII Humanities
 						</div>
@@ -95,7 +114,6 @@ export default class Yearbook extends Component{
 						onMouseLeave = {() => {document.getElementById("c-button").style.backgroundColor = "#000000";}}
 						onClick = {() => {
 							this.setState({choice:"c"}, this.loadRoll);
-							this.disableModal();
 						}}>
 							XII Commerce
 						</div>
@@ -106,11 +124,17 @@ export default class Yearbook extends Component{
 				choice = {this.state.choice} 
 				rolls = {this.state.rolls} 
 				callModal = {this.callModal}
-				setCurRoll = {this.setCurRoll}/>
+				setCurRoll = {this.setCurData}/>
 
 				
 			</div>
-			<Modal display = {this.state.modal} roll = {this.state.cur_roll} sec = {this.state.choice} disableModal = {this.disableModal}/>
+			<Modal 
+			display = {this.state.modal} 
+			roll = {this.state.cur_roll} 
+			sec = {this.state.choice} 
+			disableModal = {this.disableModal}
+			name = {this.state.cur_name}
+			/>
 			</div>
 			);
 	}
@@ -148,7 +172,7 @@ class Modal extends Component{
 			imgur: ""
 		}
 
-		let link = "https://slsyearbook.herokuapp.com/";
+		
 	}
 
 	render(){
@@ -167,7 +191,7 @@ class Modal extends Component{
 							
 							<div id = "content-info">
 								<div id = "content-info-name">
-									{this.state.name}
+									{this.props.name}
 								</div>
 								<div id = "conten-info-class">
 									Class 12{this.props.sec.toUpperCase()} Roll: {this.props.roll}
@@ -246,6 +270,7 @@ class Loading extends Component{
 			case 1: ans = "."; break;
 			case 2: ans = ".."; break;
 			case 3: ans = "..."; break;
+			default: ans = ""
 		}
 		this.setState({dots: ans})
 	}
@@ -257,10 +282,6 @@ class Loading extends Component{
 
 
 class Section extends Component{
-	constructor(props){
-		super(props);
-		//this.printCards = this.printCards.bind(this)
-	}
 	printCards(){
 		console.log("PRINTCARDS CALLED");
 		var toReturn = [];
@@ -291,7 +312,8 @@ class Section extends Component{
 class Card extends Component{
 	constructor(props){
 		super(props);
-		this.state  ={name: ""};
+		this.state  = {name: ""}
+		;
 		let link = "https://slsyearbook.herokuapp.com/";
 		let query = link + this.props.sec + "/" + this.props.roll + "/name";
 		let that = this;
