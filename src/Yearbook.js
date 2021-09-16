@@ -26,21 +26,42 @@ export default class Yearbook extends Component{
 		this.setState({modal: true});
 
 	}
-	setCurRoll(r){
-		console.log("CURROLL CALLED: " + r)
-		this.setState({cur_roll:r});
-	}
 	setCurData(r){
 		console.log("CURDATA  CALLED: " + r)
 		this.setState({cur_roll:r});
 		let link = "https://slsyearbook.herokuapp.com/";
-		let query = link + this.state.choice + "/" + r + "/name";
 		let that = this;
+		let query = link + this.state.choice + "/" + r + "/imgur";
+		
+		fetch(query)
+		.then(res => res.text())
+		.then(data => {
+			console.log("NAME FETCHED: " + data);
+			that.setState({cur_img:data});
+		})
+
+		query = link + this.state.choice + "/" + r + "/name";
 		fetch(query)
 		.then(res => res.text())
 		.then(data => {
 			console.log("NAME FETCHED: " + data);
 			that.setState({cur_name:data});
+		})
+
+		query = link + this.state.choice + "/" + r + "/fav";
+		fetch(query)
+		.then(res => res.text())
+		.then(data => {
+			console.log("NAME FETCHED: " + data);
+			that.setState({cur_fav:data});
+		})
+
+		query = link + this.state.choice + "/" + r + "/quote";
+		fetch(query)
+		.then(res => res.text())
+		.then(data => {
+			console.log("NAME FETCHED: " + data);
+			that.setState({cur_quote:data});
 		})
 	}
 	disableModal(){
@@ -134,6 +155,9 @@ export default class Yearbook extends Component{
 			sec = {this.state.choice} 
 			disableModal = {this.disableModal}
 			name = {this.state.cur_name}
+			fav = {this.state.cur_fav}
+			quote = {this.state.cur_quote}
+			imgur = {this.state.cur_img}
 			/>
 			</div>
 			);
@@ -165,13 +189,6 @@ class Content extends Component{
 class Modal extends Component{
 	constructor(props){
 		super(props);
-		this.state = {
-			name: "Name",
-			quote: "Quote",
-			fav: "Favourite Character",
-			imgur: ""
-		}
-
 		
 	}
 
@@ -186,15 +203,21 @@ class Modal extends Component{
 						</div>
 						<div id = "modal-screen-content">
 							<div id = "content-img">
-								<img id = "student-img" src="https://i.ibb.co/2FX3W4n/Screenshot-18.png" alt = "img"></img>
+								<img id = "student-img" src={this.props.imgur} alt = "profile"></img> 
 							</div>
 							
 							<div id = "content-info">
 								<div id = "content-info-name">
 									{this.props.name}
 								</div>
-								<div id = "conten-info-class">
+								<div id = "content-info-class">
 									Class 12{this.props.sec.toUpperCase()} Roll: {this.props.roll}
+								</div>
+								<div id = "content-info-quote">
+									QUOTE: {this.props.quote}
+								</div>
+								<div id = "content-info-fav">
+									FAV: {this.props.fav}
 								</div>
 							</div>
 						</div>
