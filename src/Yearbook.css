@@ -188,7 +188,7 @@ hr{
 	font-weight: bold;
 }
 
-@media(min-width: 700px){
+@media screen and (min-width: 750px){
 	#makeSticky{
 		position: sticky;
 		top: 0;
