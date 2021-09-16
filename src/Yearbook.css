@@ -170,7 +170,23 @@ hr{
 	text-align: center;
 	font-size: 5vw;
 }
+#content-info-class{
+	font-size: 3vw;
+}
 
+#quote-heading{
+		text-align: center;
+		font-weight: bold;
+}
+#content-info-quote{
+	text-align: center;
+}
+#content-info-class{
+	font-weight: bold;
+}
+#content-info-roll{
+	font-weight: bold;
+}
 @media only screen and (min-width: 700px){
 	#makeSticky{
 		position: sticky;
@@ -195,4 +211,14 @@ hr{
 	#content-info-name{
 		font-size: 3vw;
 	}
+	#content-info-class{
+		font-size: 2vw;
+	}
+	#content-info-roll{
+		font-size: 2vw;
+	}
+	#quote-heading{
+		font-size: 1.5vw;
+	}
+	
 }

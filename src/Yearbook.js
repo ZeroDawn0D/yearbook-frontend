@@ -187,11 +187,6 @@ class Content extends Component{
 }
 
 class Modal extends Component{
-	constructor(props){
-		super(props);
-		
-	}
-
 	render(){
 		if(this.props.display){
 			console.log("dark screen set")
@@ -211,13 +206,19 @@ class Modal extends Component{
 									{this.props.name}
 								</div>
 								<div id = "content-info-class">
-									Class 12{this.props.sec.toUpperCase()} Roll: {this.props.roll}
+									Class: 12{this.props.sec.toUpperCase()} 
+								</div>
+								<div id = "content-info-roll">
+									Roll: {this.props.roll}
+								</div>
+								<div id = "quote-heading">
+									QUOTE
 								</div>
 								<div id = "content-info-quote">
-									QUOTE: {this.props.quote}
+									"{this.props.quote}"
 								</div>
 								<div id = "content-info-fav">
-									FAV: {this.props.fav}
+									<b>Favourite Character:</b> {this.props.fav}
 								</div>
 							</div>
 						</div>
